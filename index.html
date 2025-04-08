@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cấu trúc thư mục chuẩn i-Cloud@LTA</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+  
+  <style>
+    /* ===== COPY CSS STYLES HERE ===== */
+    :root {
+  --primary-color: #0056b3;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --info-color: #17a2b8;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f5f7fa;
+}
+
+.header {
+  background: linear-gradient(135deg, #0056b3 0%, #00338e 100%);
+  color: white;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.nav-tabs .nav-link {
+  color: var(--dark-color);
+  border: none;
+  padding: 0.75rem 1.25rem;
+  font-weight: 500;
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--primary-color);
+  background-color: #fff;
+  border-bottom: 3px solid var(--primary-color);
+}
+
+.tab-content {
+  background-color: #fff;
+  border-radius: 0 0.25rem 0.25rem 0.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.folder-structure {
+  max-height: 700px;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.folder-item {
+  border-left: 1px dashed #ccc;
+  padding-left: 1rem;
+  margin-left: 0.5rem;
+}
+
+.folder-name {
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.folder-name:hover {
+  background-color: #f0f4f8;
+}
+
+.folder-name i {
+  margin-right: 0.5rem;
+  color: var(--primary-color);
+}
+
+.folder-code {
+  font-family: monospace;
+  color: var(--secondary-color);
+  margin-left: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.folder-details {
+  background-color: #f8f9fa;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.folder-details h5 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 0.5rem;
+}
+
+.search-container {
+  margin-bottom: 1.5rem;
+}
+
+.search-container input {
+  border-radius: 50px;
+  padding-left: 2.5rem;
+  border: 1px solid #ced4da;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 0.6rem;
+  color: #6c757d;
+}
+
+.badge-folder {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  margin-left: 0.5rem;
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.examples-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.examples-list li {
+  padding: 0.25rem 0;
+  border-bottom: 1px dotted #e9ecef;
+}
+
+.examples-list li i {
+  margin-right: 0.5rem;
+  color: var(--info-color);
+}
+
+.guide-section {
+  margin-bottom: 2rem;
+}
+
+.guide-section h4 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 0.5rem;
+}
+
+.card-rule {
+  margin-bottom: 1.5rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+.card-rule .card-header {
+  background-color: rgba(0, 86, 179, 0.1);
+  font-weight: 600;
+}
+
+.example-box {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.example-box pre {
+  margin-bottom: 0;
+}
+
+.folder-path {
+  font-family: monospace;
+  background-color: #f0f4f8;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  color: var(--secondary-color);
+}
+
+.search-results {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.result-item {
+  padding: 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+  transition: background-color 0.2s;
+}
+
+.result-item:hover {
+  background-color: #f0f4f8;
+}
+
+.result-path {
+  font-size: 0.85rem;
+  color: var(--secondary-color);
+}
+
+.copy-btn {
+  cursor: pointer;
+  color: var(--primary-color);
+  margin-left: 0.5rem;
+}
+
+.copy-btn:hover {
+  color: var(--info-color);
+}
+
+.folder-toggle {
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.folder-toggle.collapsed {
+  transform: rotate(-90deg);
+}
+
+footer {
+  background-color: #fff3cd;
+  color: white;
+  padding: 2rem 0;
+  margin-top: 3rem;
+}
+
+.highlight {
+  background-color: #fff3cd;
+  padding: 0 0.25rem;
+  border-radius: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .folder-structure {
+    max-height: 500px;
+  }
+}
+
+.restricted-folder {
+  color: var(--danger-color);
+}
+
+.selected-folder {
+  background-color: rgba(0, 86, 179, 0.1);
+  border-left: 3px solid var(--primary-color);
+}
+
+.folder-icon {
+  min-width: 20px;
+}
+
+.folder-children {
+  display: none;
+}
+
+.folder-children.show {
+  display: block;
+}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1>
+          <i class="bi bi-folder2-open"></i> Cấu trúc thư mục chuẩn
+          <span class="version-badge" id="versionBadge">v3.1</span>
+        </h1>
+        <div class="d-flex">
+          <div class="input-group">
+            <input type="text" id="globalSearch" class="form-control" placeholder="Tìm kiếm...">
+            <button class="btn btn-light" type="button">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="documentInfo" class="mb-4"></div>
+    
+    <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">
+          <i class="bi bi-house"></i> Tổng quan
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="structure-tab" data-bs-toggle="tab" data-bs-target="#structure" type="button" role="tab" aria-controls="structure" aria-selected="false">
+          <i class="bi bi-diagram-3"></i> Cấu trúc thư mục
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="examples-tab" data-bs-toggle="tab" data-bs-target="#examples" type="button" role="tab" aria-controls="examples" aria-selected="false">
+          <i class="bi bi-file-earmark-text"></i> Ví dụ tài liệu
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="search-tab" data-bs-toggle="tab" data-bs-target="#search" type="button" role="tab" aria-controls="search" aria-selected="false">
+          <i class="bi bi-search"></i> Tìm kiếm
+        </button>
+      </li>
+    </ul>
+    
+    <div class="tab-content" id="myTabContent">
+      <!-- Tab Tổng quan -->
+      <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card mb-4">
+              <div class="card-header">
+                <i class="bi bi-info-circle"></i> Giới thiệu
+              </div>
+              <div class="card-body">
+                <p>Tài liệu này quy định cấu trúc thư mục chuẩn được sử dụng trên hệ thống i-Cloud@LTA nhằm đảm bảo tính nhất quán và hiệu quả trong việc lưu trữ, quản lý và chia sẻ tài liệu trong toàn công ty.</p>
+                <p>Việc tuân thủ cấu trúc thư mục chuẩn giúp:</p>
+                <ul>
+                  <li>Dễ dàng tìm kiếm và truy cập tài liệu</li>
+                  <li>Đảm bảo tính nhất quán trong việc đặt tên và phân loại tài liệu</li>
+                  <li>Tăng cường khả năng chia sẻ và cộng tác</li>
+                  <li>Tối ưu hóa quản lý phiên bản và lưu trữ</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header">
+                <i class="bi bi-folder2"></i> Thư mục chính
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <ul class="list-group" id="main-folders-1">
+                      <div class="spinner-container">
+                        <div class="spinner-border text-primary" role="status">
+                          <span class="visually-hidden">Đang tải...</span>
+                        </div>
+                      </div>
+                    </ul>
+                  </div>
+                  <div class="col-md-6">
+                    <ul class="list-group" id="main-folders-2">
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <div class="card-header">
+                <i class="bi bi-file-earmark-text"></i> Quy tắc đặt tên
+              </div>
+              <div class="card-body">
+                <h6>Cấu trúc tên tài liệu:</h6>
+                <div class="alert alert-info">
+                  <code>MaLoai_TenTaiLieu_vX.Y_YYYYMMDD.ext</code>
+                </div>
+                <p><strong>Trong đó:</strong></p>
+                <ul>
+                  <li><strong>MaLoai</strong>: Mã thư mục chứa tài liệu</li>
+                  <li><strong>TenTaiLieu</strong>: Tên ngắn gọn của tài liệu</li>
+                  <li><strong>vX.Y</strong>: Phiên bản (v1.0, v2.1,...)</li>
+                  <li><strong>YYYYMMDD</strong>: Ngày tạo/cập nhật (20250401)</li>
+                  <li><strong>ext</strong>: Phần mở rộng (.docx, .pdf, .xlsx,...)</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header">
+                <i class="bi bi-question-circle"></i> Hỗ trợ
+              </div>
+              <div class="card-body">
+                <p>Nếu bạn có bất kỳ câu hỏi hoặc cần hỗ trợ về cấu trúc thư mục, vui lòng liên hệ:</p>
+                <ul>
+                  <li><i class="bi bi-envelope"></i> Email: <a href="mailto:it-support@company.com">it-support@company.com</a></li>
+                  <li><i class="bi bi-telephone"></i> Hotline: (028) 1234 5678</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tab Cấu trúc thư mục -->
+      <div class="tab-pane fade" id="structure" role="tabpanel" aria-labelledby="structure-tab">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="card">
+              <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span><i class="bi bi-folder2"></i> Danh sách thư mục</span>
+                  <div class="input-group" style="width: 60%;">
+                    <input type="text" id="folderSearch" class="form-control form-control-sm" placeholder="Tìm thư mục...">
+                    <button class="btn btn-sm btn-outline-secondary" type="button">
+                      <i class="bi bi-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <div class="folder-structure" id="folderStructure">
+                  <div class="spinner-container">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Đang tải...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-7">
+            <div class="card folder-details">
+              <div class="card-header">
+                <i class="bi bi-info-circle"></i> Chi tiết thư mục
+              </div>
+              <div class="card-body" id="folderDetails">
+                <div class="text-center py-5 text-muted">
+                  <i class="bi bi-folder2" style="font-size: 3rem;"></i>
+                  <h4 class="mt-3">Chọn một thư mục để xem chi tiết</h4>
+                  <p>Thông tin chi tiết về thư mục sẽ hiển thị tại đây</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tab Ví dụ tài liệu -->
+      <div class="tab-pane fade" id="examples" role="tabpanel" aria-labelledby="examples-tab">
+        <div class="card">
+          <div class="card-header">
+            <i class="bi bi-file-earmark-text"></i> Ví dụ tài liệu theo thư mục
+          </div>
+          <div class="card-body">
+            <div class="accordion" id="examplesAccordion">
+              <div class="spinner-container">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Đang tải...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tab Tìm kiếm -->
+      <div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-search"></i> Kết quả tìm kiếm</span>
+              <span class="badge bg-primary rounded-pill" id="searchResultCount">0</span>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div id="searchResults">
+              <div class="text-center py-5 text-muted">
+                <i class="bi bi-search" style="font-size: 3rem;"></i>
+                <h4 class="mt-3">Nhập từ khóa để tìm kiếm</h4>
+                <p>Kết quả tìm kiếm sẽ hiển thị tại đây</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="mt-5 mb-3 text-center text-muted">
+      <p>© 2025 Công Ty Cổ Phần Ứng Dụng Công Nghệ Logistics. Tất cả quyền được bảo lưu.</p>
+      <p><small>Cập nhật lần cuối: 06/04/2025</small></p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    /* ===== COPY DATA JSON HERE ===== */
+    const folderData =  {
+  "title": "Cấu trúc thư mục chuẩn trên i-Cloud@LTA",
+  "version": "3.1",
+  "effective_date": "06/04/2025",
+  "document_code": "QĐ-IT-2025-001",
+  "description": "Quy định & Hướng dẫn về việc Quản lý Tài liệu và Sử dụng Cấu trúc Thư mục Chuẩn trên i-Cloud@LTA",
+  "folder_structure": {
+    "name": "LTA_Documents",
+    "code": "LTA_Documents",
+    "description": "Thư mục gốc tài liệu công ty",
+    "readme": "Giải thích mục đích chung, link tới Quy Định",
+    "subfolders": [
+      {
+        "name": "ADM-Admin",
+        "code": "ADM",
+        "description": "Hành chính: Vận hành chung",
+        "readme": "Mục đích chung của thư mục Hành chính",
+        "subfolders": [
+          {
+            "name": "POL-Policies",
+            "code": "ADM-POL",
+            "description": "Chính sách & Quy trình chung công ty",
+            "readme": "Nội dung: Quy định, chính sách công ty...",
+            "examples": [
+              "ADM-POL_QuyDinhNghiPhep_v2.1_20250115.pdf",
+              "ADM-POL_ChinhSachBaoMatThongTin_v3.0_20250301.docx",
+              "ADM-POL_HuongDanSuDungTaiSanCongTy_v1.0_20241210.pdf"
+            ]
+          },
+          {
+            "name": "OFF-Office",
+            "code": "ADM-OFF",
+            "description": "Quản lý Văn phòng: CSVC, VPP",
+            "readme": "Mã: ADM-OFF",
+            "subfolders": [
+              {
+                "name": "FAC-Facilities",
+                "code": "ADM-OFF-FAC",
+                "description": "Cơ sở vật chất: Thuê VP, bảo trì, sơ đồ",
+                "examples": [
+                  "ADM-OFF-FAC_HopDongThueVPToaNhaABC_20241201.pdf",
+                  "ADM-OFF-FAC_SoDoMatBangTang5_20250105.png",
+                  "ADM-OFF-FAC_LichBaoTriDieuHoa_20250401.xlsx"
+                ]
+              },
+              {
+                "name": "SUP-Supplies",
+                "code": "ADM-OFF-SUP",
+                "description": "VPP & Mua sắm thông thường",
+                "examples": [
+                  "ADM-OFF-SUP_YeuCauMuaVPPQ2_20250402.xlsx",
+                  "ADM-OFF-SUP_DanhSachNCC_VPP_CapNhat_20250110.pdf"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "COM-Comms",
+            "code": "ADM-COM",
+            "description": "Truyền thông Nội bộ: Thông báo, bản tin",
+            "readme": "Mã: ADM-COM",
+            "subfolders": [
+              {
+                "name": "NEWS-Newsletters",
+                "code": "ADM-COM-NEWS",
+                "description": "Bản tin nội bộ định kỳ",
+                "examples": [
+                  "ADM-COM-NEWS_BanTinThang03_20250401.pdf",
+                  "ADM-COM-NEWS_BanTinThang02_20250301.pdf"
+                ]
+              },
+              {
+                "name": "ANNOUNCE-Announcements",
+                "code": "ADM-COM-ANNOUNCE",
+                "description": "Thông báo chung toàn công ty",
+                "examples": [
+                  "ADM-COM-ANNOUNCE_RaMatQuyTrinhMoiABC_20250320.docx",
+                  "ADM-COM-ANNOUNCE_LichNghiLe3004_20250405.pdf"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "MTG-Meetings",
+            "code": "ADM-MTG",
+            "description": "Họp chung: Toàn thể, không thuộc dự án/bộ phận",
+            "readme": "Mã: ADM-MTG",
+            "subfolders": [
+              {
+                "name": "ALL-AllHands",
+                "code": "ADM-MTG-ALL",
+                "description": "Tài liệu Họp toàn thể",
+                "examples": [
+                  "ADM-MTG-ALL_SlideHopToanTheQ1Review_20250405.pptx",
+                  "ADM-MTG-ALL_BienBanHopToanTheQ1Review_20250405.docx"
+                ]
+              },
+              {
+                "name": "TOWN-Townhall",
+                "code": "ADM-MTG-TOWN",
+                "description": "Tài liệu Họp đối thoại mở",
+                "examples": [
+                  "ADM-MTG-TOWN_BienBanHopQ1Feedback_20250310.docx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "PRJ-Projects",
+            "code": "ADM-PRJ",
+            "description": "Dự án Nội bộ: Không liên quan SP/KT",
+            "readme": "Mã: ADM-PRJ",
+            "subfolders": [
+              {
+                "name": "PRJ-OfficeRelocation",
+                "code": "ADM-PRJ_OfficeRelocation",
+                "description": "Ví dụ: Dự án chuyển văn phòng",
+                "readme": "Mã: ADM-PRJ_OfficeRelocation, mục tiêu, QLDA...",
+                "subfolders": [
+                  {
+                    "name": "PLAN-Plans",
+                    "code": "ADM-PRJ_OfficeRelocation-PLAN",
+                    "description": "Kế hoạch dự án",
+                    "examples": [
+                      "ADM-PRJ_OfficeRelocation-PLAN_KeHoachTongThe_v1.2_20250301.mpp"
+                    ]
+                  },
+                  {
+                    "name": "MEET-Meetings",
+                    "code": "ADM-PRJ_OfficeRelocation-MEET",
+                    "description": "Họp dự án",
+                    "examples": [
+                      "ADM-PRJ_OfficeRelocation-MEET_BienBanHopKickOff_20250215.docx"
+                    ]
+                  },
+                  {
+                    "name": "MGMT-Management",
+                    "code": "ADM-PRJ_OfficeRelocation-MGMT",
+                    "description": "Quản lý dự án (nhân sự, etc)",
+                    "examples": [
+                      "ADM-PRJ_OfficeRelocation-MGMT_DanhSachNhanSuPhuTrach_20250220.xlsx"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+	      {
+        "name": "FIN-Finance",
+        "code": "FIN",
+        "description": "Tài chính: Kế toán, ngân sách, báo cáo, thuế, NĐT",
+        "readme": "Mục đích chung của thư mục Tài chính",
+        "subfolders": [
+          {
+            "name": "ACC-Accounting",
+            "code": "FIN-ACC",
+            "description": "Kế toán: Sổ sách, công nợ, kiểm toán",
+            "readme": "Mã: FIN-ACC",
+            "subfolders": [
+              {
+                "name": "COA-ChartAccounts",
+                "code": "FIN-ACC-COA",
+                "description": "Hệ thống Tài khoản kế toán",
+                "examples": [
+                  "FIN-ACC-COA_HeThongTaiKhoanTheoTT200_20250101.xlsx"
+                ]
+              },
+              {
+                "name": "GL-GeneralLedger",
+                "code": "FIN-ACC-GL",
+                "description": "Sổ cái kế toán",
+                "examples": [
+                  "FIN-ACC-GL_NhatKyChungThang03_20250403.xlsx"
+                ]
+              },
+              {
+                "name": "AR-Receivables",
+                "code": "FIN-ACC-AR",
+                "description": "Công nợ Phải thu",
+                "examples": [
+                  "FIN-ACC-AR_BangTheoDoiCongNoKH_ABC_20250406.xlsx",
+                  "FIN-ACC-AR_BaoCaoTuoiNoDen20250331_20250401.pdf"
+                ]
+              },
+              {
+                "name": "AP-Payables",
+                "code": "FIN-ACC-AP",
+                "description": "Công nợ Phải trả",
+                "examples": [
+                  "FIN-ACC-AP_HoaDonNCCXYZ_HD123_20250401.pdf",
+                  "FIN-ACC-AP_TheoDoiThanhToanNCC_20250405.xlsx"
+                ]
+              },
+              {
+                "name": "AUD-Audit",
+                "code": "FIN-ACC-AUD",
+                "description": "Tài liệu Kiểm toán",
+                "examples": [
+                  "FIN-ACC-AUD_KeHoachKiemToanNoiBoQ2_20250401.docx",
+                  "FIN-ACC-AUD_BaoCaoKiemToanDocLapFY2024_20250315.pdf"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "BUD-Budget",
+            "code": "FIN-BUD",
+            "description": "Ngân sách & Dự báo tài chính",
+            "examples": [
+              "FIN-BUD_NganSachTongTheCongTyFY2025_vFinal_20241130.xlsx",
+              "FIN-BUD_DuBaoTaiChinhQ2_CapNhatLan1_20250402.pptx"
+            ]
+          },
+          {
+            "name": "REP-Reports",
+            "code": "FIN-REP",
+            "description": "Báo cáo Tài chính định kỳ",
+            "examples": [
+              "FIN-REP_BaoCaoKQKDThang03_20250405.xlsx",
+              "FIN-REP_BangCanDoiKeToanQ1_20250405.pdf",
+              "FIN-REP_BaoCaoLuuChuyenTienTeQ1_20250405.pdf"
+            ]
+          },
+          {
+            "name": "TAX-Taxation",
+            "code": "FIN-TAX",
+            "description": "Hồ sơ Thuế các loại",
+            "readme": "Mã: FIN-TAX",
+            "subfolders": [
+              {
+                "name": "CIT-CorpTax",
+                "code": "FIN-TAX-CIT",
+                "description": "Thuế Thu nhập Doanh nghiệp",
+                "examples": [
+                  "FIN-TAX-CIT_ToKhaiQuyetToanTNDNFY2024_Filed_20250330.pdf"
+                ]
+              },
+              {
+                "name": "VAT-VATTax",
+                "code": "FIN-TAX-VAT",
+                "description": "Thuế Giá trị Gia tăng",
+                "examples": [
+                  "FIN-TAX-VAT_ToKhaiGTGTQ1_20250420.pdf",
+                  "FIN-TAX-VAT_BangKeMuaVaoBanRaThang03_20250405.xlsx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "EXP-Expenses",
+            "code": "FIN-EXP",
+            "description": "Chi phí & Hoàn ứng của nhân viên",
+            "examples": [
+              "FIN-EXP_ChinhSachCongTacPhi_v2.0_20250120.pdf",
+              "FIN-EXP_BaoCaoChiPhiNguyenVanA_Thang03_20250404.xlsx"
+            ]
+          },
+          {
+            "name": "PAY-Payroll",
+            "code": "FIN-PAY",
+            "description": "Lương thưởng (Phân quyền nghiêm ngặt!)",
+            "examples": [
+              "FIN-PAY_BangLuongChiTietThang03_20250328.xlsx",
+              "FIN-PAY_BaoCaoChiPhiLuongThang03_20250402.pdf"
+            ]
+          },
+          {
+            "name": "IVR-Investors",
+            "code": "FIN-IVR",
+            "description": "Quan hệ Nhà đầu tư",
+            "readme": "Mã: FIN-IVR",
+            "subfolders": [
+              {
+                "name": "REP-Reports",
+                "code": "FIN-IVR-REP",
+                "description": "Báo cáo gửi Nhà đầu tư",
+                "examples": [
+                  "FIN-IVR-REP_BaoCaoHoatDongQuyQ1_20250415.pdf",
+                  "FIN-IVR-REP_InvestorPresentationUpdate_20250410.pptx"
+                ]
+              },
+              {
+                "name": "COMM-Communication",
+                "code": "FIN-IVR-COMM",
+                "description": "Trao đổi với Nhà đầu tư",
+                "examples": [
+                  "FIN-IVR-COMM_BienBanHopQuyDauTuX_20250210.docx"
+                ]
+              },
+              {
+                "name": "PROS-Prospectus",
+                "code": "FIN-IVR-PROS",
+                "description": "Bản cáo bạch & Gọi vốn",
+                "examples": [
+                  "FIN-IVR-PROS_BanCaoBachSeriesA_Draft_v1_20250301.pdf"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "HR-HumanResources",
+        "code": "HR",
+        "description": "Nhân sự: Tuyển dụng, hồ sơ, chính sách, đào tạo, văn hóa",
+        "readme": "Mục đích chung của thư mục Nhân sự",
+        "subfolders": [
+          {
+            "name": "REC-Recruitment",
+            "code": "HR-REC",
+            "description": "Tuyển dụng: JD, quy trình, hồ sơ ứng viên",
+            "readme": "Mã: HR-REC",
+            "subfolders": [
+              {
+                "name": "JD-JobDescriptions",
+                "code": "HR-REC-JD",
+                "description": "Mô tả Công việc (JD)",
+                "examples": [
+                  "HR-REC-JD_BackendDeveloperJava_20250201.docx",
+                  "HR-REC-JD_BusinessAnalystSenior_20250310.pdf"
+                ]
+              },
+              {
+                "name": "PROC-Processes",
+                "code": "HR-REC-PROC",
+                "description": "Quy trình & Biểu mẫu tuyển dụng",
+                "examples": [
+                  "HR-REC-PROC_QuyTrinhTuyenDung_v3_20250105.pdf",
+                  "HR-REC-PROC_PhieuDanhGiaPhongVanMau_20250105.docx"
+                ]
+              },
+              {
+                "name": "APP-Applicants",
+                "code": "HR-REC-APP",
+                "description": "Hồ sơ Ứng viên & Phỏng vấn (Phân quyền nghiêm ngặt!)",
+                "examples": [
+                  "HR-REC-APP_UngVienLeThiB_CV_20250312.pdf",
+                  "HR-REC-APP_UngVienTranVanC_GhiChuPV_Vong1_20250401.docx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "EMP-Employees",
+            "code": "HR-EMP",
+            "description": "Hồ sơ Nhân viên (Phân quyền nghiêm ngặt!)",
+            "readme": "Mã: HR-EMP",
+            "subfolders": [
+              {
+                "name": "CON-Contracts",
+                "code": "HR-EMP-CON",
+                "description": "Hợp đồng Lao động",
+                "examples": [
+                  "HR-EMP-CON_HDLD_NguyenVanA_20240501.pdf",
+                  "HR-EMP-CON_PhuLucHDLD_DieuChinhLuong_NguyenVanA_20250101.pdf"
+                ]
+              },
+              {
+                "name": "ONB-Onboarding",
+                "code": "HR-EMP-ONB",
+                "description": "Quy trình Hội nhập nhân viên mới",
+                "examples": [
+                  "HR-EMP-ONB_ChecklistHoiNhapLeThiB_20250401.xlsx",
+                  "HR-EMP-ONB_TaiLieuGioiThieuCongTyChoNVmoi_20250115.pdf"
+                ]
+              },
+              {
+                "name": "PRF-Performance",
+                "code": "HR-EMP-PRF",
+                "description": "Đánh giá Hiệu suất",
+                "examples": [
+                  "HR-EMP-PRF_KetQuaDanhGiaNguyenVanA_Nam2024_20241215.pdf",
+                  "HR-EMP-PRF_KeHoachPhatTrienCaNhanLeThiB_20250110.docx"
+                ]
+              },
+              {
+                "name": "CMP-Compensation",
+                "code": "HR-EMP-CMP",
+                "description": "Lương thưởng & Phúc lợi (liên quan hồ sơ NV)",
+                "examples": [
+                  "HR-EMP-CMP_QuyetDinhLuongLeThiB_20250401.pdf",
+                  "HR-EMP-CMP_ThongTinBaoHiemXaHoiNguyenVanA_20240515.pdf"
+                ]
+              },
+              {
+                "name": "OFF-Offboarding",
+                "code": "HR-EMP-OFF",
+                "description": "Quy trình Nghỉ việc",
+                "examples": [
+                  "HR-EMP-OFF_ChecklistNghiViecTranVanC_20250331.xlsx",
+                  "HR-EMP-OFF_BienBanBanGiaoCongViecTranVanC_20250331.pdf"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "POL-Policies",
+            "code": "HR-POL",
+            "description": "Chính sách Nhân sự: Sổ tay, nội quy...",
+            "examples": [
+              "HR-POL_SoTayNhanVien_v4.0_20250201.pdf",
+              "HR-POL_NoiQuyLaoDongDangKy_20241101.pdf",
+              "HR-POL_ChinhSachLamViecTuXa_v1.5_20250310.docx"
+            ]
+          },
+          {
+            "name": "TRN-Training",
+            "code": "HR-TRN",
+            "description": "Đào tạo & Phát triển nhân viên",
+            "readme": "Mã: HR-TRN",
+            "subfolders": [
+              {
+                "name": "MAT-Materials",
+                "code": "HR-TRN-MAT",
+                "description": "Tài liệu Đào tạo",
+                "examples": [
+                  "HR-TRN-MAT_KyNangQuanLyThoiGianSlides_20250220.pptx",
+                  "HR-TRN-MAT_HuongDanSuDungPhanMemABC_Video_20250305.mp4"
+                ]
+              },
+              {
+                "name": "REC-Records",
+                "code": "HR-TRN-REC",
+                "description": "Hồ sơ Đào tạo",
+                "examples": [
+                  "HR-TRN-REC_DanhSachThamDuKyNangMem_20250315.xlsx",
+                  "HR-TRN-REC_ChungChiHoanThanhKhoaHocXYZ_NguyenVanA_20250320.pdf"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "CUL-Culture",
+            "code": "HR-CUL",
+            "description": "Văn hóa Công ty & Sự kiện nội bộ",
+            "examples": [
+              "HR-CUL_HinhAnhTeamBuildingQ1_20250325.zip",
+              "HR-CUL_KeHoachToChucYearEndParty_20251101.docx"
+            ]
+          }
+        ]
+      },
+	      {
+        "name": "LGL-Legal",
+        "code": "LGL",
+        "description": "Pháp lý: Quản trị DN, hợp đồng, tuân thủ, SHTT",
+        "readme": "Mục đích chung của thư mục Pháp lý",
+        "subfolders": [
+          {
+            "name": "COR-Corporate",
+            "code": "LGL-COR",
+            "description": "Quản trị Doanh nghiệp (CTCP)",
+            "readme": "Mã: LGL-COR",
+            "subfolders": [
+              {
+                "name": "REG-Registration",
+                "code": "LGL-COR-REG",
+                "description": "Đăng ký kinh doanh & Giấy phép",
+                "examples": [
+                  "LGL-COR-REG_GiayChungNhanDKDNLan5_20241020.pdf"
+                ]
+              },
+              {
+                "name": "CHART-Charter",
+                "code": "LGL-COR-CHART",
+                "description": "Điều lệ & Quy chế nội bộ",
+                "examples": [
+                  "LGL-COR-CHART_DieuLeCongTySuaDoi_v3_20241101.pdf"
+                ]
+              },
+              {
+                "name": "BOD-BoardDirectors",
+                "code": "LGL-COR-BOD",
+                "description": "Tài liệu Hội đồng Quản trị",
+                "examples": [
+                  "LGL-COR-BOD_NghiQuyetHDQTPheDuyetNganSach_20241130.pdf"
+                ]
+              },
+              {
+                "name": "SHM-Shareholders",
+                "code": "LGL-COR-SHM",
+                "description": "Tài liệu Đại hội đồng Cổ đông",
+                "examples": [
+                  "LGL-COR-SHM_BienBanHopDHDCDThuongNien_20240520.pdf"
+                ]
+              },
+              {
+                "name": "SHARE-ShareRegister",
+                "code": "LGL-COR-SHARE",
+                "description": "Sổ đăng ký Cổ đông (Phân quyền nghiêm ngặt!)",
+                "examples": [
+                  "LGL-COR-SHARE_SoDangKyCoDongCapNhat_20250101.xlsx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "CTR-Contracts",
+            "code": "LGL-CTR",
+            "description": "Hợp đồng (Không phải bán hàng/lao động)",
+            "readme": "Mã: LGL-CTR",
+            "subfolders": [
+              {
+                "name": "VEND-Vendor",
+                "code": "LGL-CTR-VEND",
+                "description": "Hợp đồng Nhà cung cấp",
+                "examples": [
+                  "LGL-CTR-VEND_HopDongDichVuCloudProviderX_KyMoi_20250201.pdf"
+                ]
+              },
+              {
+                "name": "PART-Partner",
+                "code": "LGL-CTR-PART",
+                "description": "Hợp đồng Đối tác",
+                "examples": [
+                  "LGL-CTR-PART_HopDongHopTacResellerY_20250310.docx"
+                ]
+              },
+              {
+                "name": "NDA-NDAs",
+                "code": "LGL-CTR-NDA",
+                "description": "Thỏa thuận Bảo mật (NDA)",
+                "examples": [
+                  "LGL-CTR-NDA_NDA_HaiChieuProspectZ_Signed_20250125.pdf"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "CPL-Compliance",
+            "code": "LGL-CPL",
+            "description": "Tuân thủ & Pháp quy",
+            "readme": "Mã: LGL-CPL",
+            "subfolders": [
+              {
+                "name": "GDPR-GDPR",
+                "code": "LGL-CPL-GDPR",
+                "description": "Tuân thủ GDPR (Nếu áp dụng)",
+                "examples": [
+                  "LGL-CPL-GDPR_ChinhSachBaoMatDuLieuCaNhan_v1.5_20250105.pdf"
+                ]
+              },
+              {
+                "name": "LOCAL-LocalRegs",
+                "code": "LGL-CPL-LOCAL",
+                "description": "Tuân thủ Quy định địa phương",
+                "examples": [
+                  "LGL-CPL-LOCAL_HoSoQuanLyPCCC_KiemTraDinhKy_20250210.pdf"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "IP-IntellectualProperty",
+            "code": "LGL-IP",
+            "description": "Sở hữu Trí tuệ",
+            "readme": "Mã: LGL-IP",
+            "subfolders": [
+              {
+                "name": "TM-Trademarks",
+                "code": "LGL-IP-TM",
+                "description": "Nhãn hiệu (Trademark)",
+                "examples": [
+                  "LGL-IP-TM_GiayChungNhanDangKyNhanHieuLogoABC_20230601.pdf"
+                ]
+              },
+              {
+                "name": "PAT-Patents",
+                "code": "LGL-IP-PAT",
+                "description": "Bằng sáng chế (Patent)",
+                "examples": [
+                  "LGL-IP-PAT_BangDocQuyenSangCheCongNgheX_20240801.pdf"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "LIT-Litigation",
+            "code": "LGL-LIT",
+            "description": "Kiện tụng, Tranh chấp (Nếu có)",
+            "examples": [
+              "LGL-LIT_HoSoVuKienABC_ThongBaoThuLy_20250220.pdf"
+            ]
+          }
+        ]
+      },
+      ,{
+        "name": "IT-InfoTech",
+        "code": "IT",
+        "description": "CNTT: Hạ tầng, phần cứng, phần mềm, bảo mật, hỗ trợ",
+        "readme": "Mục đích chung của thư mục IT",
+        "subfolders": [
+          {
+            "name": "INF-Infrastructure",
+            "code": "IT-INF",
+            "description": "Hạ tầng CNTT: Mạng, máy chủ, cloud...",
+            "readme": "Mã: IT-INF",
+            "subfolders": [
+              {
+                "name": "NET-Network",
+                "code": "IT-INF-NET",
+                "description": "Hệ thống Mạng",
+                "examples": [
+                  "IT-INF-NET_SoDoMangLAN_20250201.vsdx",
+                  "IT-INF-NET_CauHinhRouterChiNhanhB_20250315.docx"
+                ]
+              },
+              {
+                "name": "SRV-Servers",
+                "code": "IT-INF-SRV",
+                "description": "Máy chủ & Hệ thống",
+                "examples": [
+                  "IT-INF-SRV_DanhSachMayChuVatLy_20250301.xlsx",
+                  "IT-INF-SRV_LichBackupDuLieu_20250401.pdf"
+                ]
+              },
+              {
+                "name": "CLD-Cloud",
+                "code": "IT-INF-CLD",
+                "description": "Dịch vụ Đám mây",
+                "examples": [
+                  "IT-INF-CLD_KienTrucAWSCongTy_20250220.vsdx",
+                  "IT-INF-CLD_BaoCaoSuDungTaiNguyenCloud_Thang03_20250405.xlsx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "HW-Hardware",
+            "code": "IT-HW",
+            "description": "Phần cứng: Máy tính, thiết bị...",
+            "readme": "Mã: IT-HW",
+            "subfolders": [
+              {
+                "name": "INV-Inventory",
+                "code": "IT-HW-INV",
+                "description": "Danh mục Thiết bị",
+                "examples": [
+                  "IT-HW-INV_DanhSachThietBiCNTT_20250401.xlsx",
+                  "IT-HW-INV_BaoCaoKiemKeTaiSanQ1_20250405.pdf"
+                ]
+              },
+              {
+                "name": "PROC-Procurement",
+                "code": "IT-HW-PROC",
+                "description": "Mua sắm Thiết bị",
+                "examples": [
+                  "IT-HW-PROC_DeXuatMuaLaptopQ2_20250401.docx",
+                  "IT-HW-PROC_BangSoSanhBaoGiaLaptopDell_20250315.xlsx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "SW-Software",
+            "code": "IT-SW",
+            "description": "Phần mềm: Bản quyền, ứng dụng...",
+            "readme": "Mã: IT-SW",
+            "subfolders": [
+              {
+                "name": "LIC-Licenses",
+                "code": "IT-SW-LIC",
+                "description": "Bản quyền Phần mềm",
+                "examples": [
+                  "IT-SW-LIC_DanhSachBanQuyenPhanMem_20250301.xlsx",
+                  "IT-SW-LIC_HopDongMuaBanQuyenMicrosoft365_20241201.pdf"
+                ]
+              },
+              {
+                "name": "APP-Applications",
+                "code": "IT-SW-APP",
+                "description": "Ứng dụng Phần mềm",
+                "examples": [
+                  "IT-SW-APP_DanhSachPhanMemDuocPhepCaiDat_20250215.pdf",
+                  "IT-SW-APP_HuongDanCaiDatVPNClient_20250110.docx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "SEC-Security",
+            "code": "IT-SEC",
+            "description": "Bảo mật CNTT",
+            "readme": "Mã: IT-SEC",
+            "subfolders": [
+              {
+                "name": "POL-Policies",
+                "code": "IT-SEC-POL",
+                "description": "Chính sách Bảo mật",
+                "examples": [
+                  "IT-SEC-POL_ChinhSachMatKhau_v2.0_20250201.pdf",
+                  "IT-SEC-POL_QuyDinhSuDungThietBiCaNhan_20250110.docx"
+                ]
+              },
+              {
+                "name": "AUD-Audits",
+                "code": "IT-SEC-AUD",
+                "description": "Kiểm toán Bảo mật",
+                "examples": [
+                  "IT-SEC-AUD_BaoCaoKiemToanBaoMatQ1_20250401.pdf",
+                  "IT-SEC-AUD_KetQuaQuetLoHongHeThong_20250315.xlsx"
+                ]
+              },
+              {
+                "name": "INC-Incidents",
+                "code": "IT-SEC-INC",
+                "description": "Sự cố Bảo mật (Phân quyền nghiêm ngặt!)",
+                "examples": [
+                  "IT-SEC-INC_BaoCaoSuCoPhishingEmail_20250320.docx",
+                  "IT-SEC-INC_PhanTichRuiRoSuCo_20250322.pdf"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "SUP-Support",
+            "code": "IT-SUP",
+            "description": "Hỗ trợ CNTT",
+            "readme": "Mã: IT-SUP",
+            "subfolders": [
+              {
+                "name": "DOC-Documentation",
+                "code": "IT-SUP-DOC",
+                "description": "Tài liệu Hướng dẫn",
+                "examples": [
+                  "IT-SUP-DOC_HuongDanSuDungEmailO365_20250201.pdf",
+                  "IT-SUP-DOC_FAQCacVanDeThuongGap_20250315.docx"
+                ]
+              },
+              {
+                "name": "TIC-Tickets",
+                "code": "IT-SUP-TIC",
+                "description": "Yêu cầu Hỗ trợ",
+                "examples": [
+                  "IT-SUP-TIC_BaoCaoYeuCauHoTroThang03_20250405.xlsx",
+                  "IT-SUP-TIC_PhanTichThoiGianXuLyQ1_20250405.pdf"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+	     , {
+        "name": "MKT-Marketing",
+        "code": "MKT",
+        "description": "Marketing: Thương hiệu, truyền thông, sự kiện, nội dung",
+        "readme": "Mục đích chung của thư mục Marketing",
+        "subfolders": [
+          {
+            "name": "BRD-Brand",
+            "code": "MKT-BRD",
+            "description": "Thương hiệu: Logo, nhận diện, hướng dẫn",
+            "readme": "Mã: MKT-BRD",
+            "subfolders": [
+              {
+                "name": "GUIDE-Guidelines",
+                "code": "MKT-BRD-GUIDE",
+                "description": "Hướng dẫn Thương hiệu",
+                "examples": [
+                  "MKT-BRD-GUIDE_BrandGuidelinesCongTy_v2.0_20250201.pdf",
+                  "MKT-BRD-GUIDE_HuongDanSuDungLogo_20250201.pdf"
+                ]
+              },
+              {
+                "name": "ASSET-Assets",
+                "code": "MKT-BRD-ASSET",
+                "description": "Tài sản Thương hiệu",
+                "examples": [
+                  "MKT-BRD-ASSET_LogoCongTyDinhDangVectorAI_20250201.ai",
+                  "MKT-BRD-ASSET_BoMauChuanTheoRGB_20250201.xlsx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "COM-Communications",
+            "code": "MKT-COM",
+            "description": "Truyền thông: PR, báo chí, truyền thông đối ngoại",
+            "readme": "Mã: MKT-COM",
+            "subfolders": [
+              {
+                "name": "PR-PublicRelations",
+                "code": "MKT-COM-PR",
+                "description": "Quan hệ Công chúng",
+                "examples": [
+                  "MKT-COM-PR_ThongCaoBaoChiRaMSPMoi_20250315.docx",
+                  "MKT-COM-PR_BaoCaoTruyenThongQ1_20250405.pptx"
+                ]
+              },
+              {
+                "name": "PRESS-PressReleases",
+                "code": "MKT-COM-PRESS",
+                "description": "Thông cáo Báo chí",
+                "examples": [
+                  "MKT-COM-PRESS_ThongCaoRaMSPMoi_Final_20250320.pdf",
+                  "MKT-COM-PRESS_ThongCaoHopTacDoiTacX_20250210.docx"
+                ]
+              },
+              {
+                "name": "MEDIA-MediaCoverage",
+                "code": "MKT-COM-MEDIA",
+                "description": "Báo chí đưa tin",
+                "examples": [
+                  "MKT-COM-MEDIA_BaiVietTrenBaoX_20250322.pdf",
+                  "MKT-COM-MEDIA_BaoCaoTongHopBaoChi_Thang03_20250405.docx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "DIG-Digital",
+            "code": "MKT-DIG",
+            "description": "Marketing Số: Website, SEO, SEM, mạng xã hội",
+            "readme": "Mã: MKT-DIG",
+            "subfolders": [
+              {
+                "name": "WEB-Website",
+                "code": "MKT-DIG-WEB",
+                "description": "Website",
+                "examples": [
+                  "MKT-DIG-WEB_BaoCaoHieuQuaWebsite_Thang03_20250405.xlsx",
+                  "MKT-DIG-WEB_NoiDungTrangSanPhamMoi_20250315.docx"
+                ]
+              },
+              {
+                "name": "SEO-SEO",
+                "code": "MKT-DIG-SEO",
+                "description": "Tối ưu Công cụ Tìm kiếm",
+                "examples": [
+                  "MKT-DIG-SEO_BaoCaoHieuQuaSEO_Q1_20250405.pptx",
+                  "MKT-DIG-SEO_KeHoachNoiDungSEO_Q2_20250401.xlsx"
+                ]
+              },
+              {
+                "name": "SEM-SEM",
+                "code": "MKT-DIG-SEM",
+                "description": "Marketing Công cụ Tìm kiếm",
+                "examples": [
+                  "MKT-DIG-SEM_BaoCaoCampainGoogle_Thang03_20250405.xlsx",
+                  "MKT-DIG-SEM_KeHoachQuangCaoQ2_20250401.docx"
+                ]
+              },
+              {
+                "name": "SOC-Social",
+                "code": "MKT-DIG-SOC",
+                "description": "Mạng Xã hội",
+                "examples": [
+                  "MKT-DIG-SOC_LichDangBaiQ2_20250401.xlsx",
+                  "MKT-DIG-SOC_BaoCaoHieuQuaFB_Thang03_20250405.pptx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "EVT-Events",
+            "code": "MKT-EVT",
+            "description": "Sự kiện Marketing",
+            "readme": "Mã: MKT-EVT",
+            "subfolders": [
+              {
+                "name": "CONF-Conference",
+                "code": "MKT-EVT-CONF",
+                "description": "Hội nghị, Hội thảo",
+                "examples": [
+                  "MKT-EVT-CONF_KeHoachHoiThaoTechTalk_20250420.docx",
+                  "MKT-EVT-CONF_BaoCaoKetQuaHoiNghi_20250325.pptx"
+                ]
+              },
+              {
+                "name": "EXPO-Exhibitions",
+                "code": "MKT-EVT-EXPO",
+                "description": "Triển lãm",
+                "examples": [
+                  "MKT-EVT-EXPO_KeHoachThamGiaTrienLamX_20250510.docx",
+                  "MKT-EVT-EXPO_ThietKeGianHangTrienLam_20250510.pdf"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "CON-Content",
+            "code": "MKT-CON",
+            "description": "Nội dung Marketing",
+            "readme": "Mã: MKT-CON",
+            "subfolders": [
+              {
+                "name": "BLOG-Blog",
+                "code": "MKT-CON-BLOG",
+                "description": "Bài viết Blog",
+                "examples": [
+                  "MKT-CON-BLOG_BaiVietXuHuongCongNghe2025_20250310.docx",
+                  "MKT-CON-BLOG_LichDangBaiQ2_20250401.xlsx"
+                ]
+              },
+              {
+                "name": "VID-Videos",
+                "code": "MKT-CON-VID",
+                "description": "Video Marketing",
+                "examples": [
+                  "MKT-CON-VID_KichBanVideoSanPhamMoi_20250315.docx",
+                  "MKT-CON-VID_KeHoachSanXuatVideoQ2_20250401.xlsx"
+                ]
+              },
+              {
+                "name": "NEWS-Newsletter",
+                "code": "MKT-CON-NEWS",
+                "description": "Bản tin Marketing",
+                "examples": [
+                  "MKT-CON-NEWS_BanTinKhachHangThang03_20250330.pdf",
+                  "MKT-CON-NEWS_NoiDungEmailMarketing_20250405.docx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "CAM-Campaigns",
+            "code": "MKT-CAM",
+            "description": "Chiến dịch Marketing",
+            "examples": [
+              "MKT-CAM_ChienDichRaMSPMoi_KeHoach_20250301.pptx",
+              "MKT-CAM_BaoCaoKetQuaChienDichQ1_20250405.xlsx"
+            ]
+          }
+        ]
+      },
+      ,{
+        "name": "SAL-Sales",
+        "code": "SAL",
+        "description": "Bán hàng: Khách hàng, đối tác, quy trình bán, hợp đồng",
+        "readme": "Mục đích chung của thư mục Bán hàng",
+        "subfolders": [
+          {
+            "name": "CUS-Customers",
+            "code": "SAL-CUS",
+            "description": "Khách hàng (Phân quyền nghiêm ngặt!)",
+            "readme": "Mã: SAL-CUS",
+            "subfolders": [
+              {
+                "name": "DB-Database",
+                "code": "SAL-CUS-DB",
+                "description": "Cơ sở dữ liệu Khách hàng",
+                "examples": [
+                  "SAL-CUS-DB_DanhSachKhachHangTiemNang_20250401.xlsx",
+                  "SAL-CUS-DB_PhanLoaiKhachHangTheoDoanhThu_20250405.xlsx"
+                ]
+              },
+              {
+                "name": "PROS-Prospects",
+                "code": "SAL-CUS-PROS",
+                "description": "Khách hàng Tiềm năng",
+                "examples": [
+                  "SAL-CUS-PROS_DanhSachLeadsMoi_Thang03_20250405.xlsx",
+                  "SAL-CUS-PROS_BaoCaoTiLeChuyenDoi_Q1_20250405.pptx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "PART-Partners",
+            "code": "SAL-PART",
+            "description": "Đối tác Bán hàng",
+            "examples": [
+              "SAL-PART_DanhSachDoiTacPhanPhoi_20250401.xlsx",
+              "SAL-PART_ChinhSachChietKhauDoiTac_20250301.pdf"
+            ]
+          },
+          {
+            "name": "PROC-Process",
+            "code": "SAL-PROC",
+            "description": "Quy trình Bán hàng",
+            "examples": [
+              "SAL-PROC_QuyTrinhBanHang_v2.0_20250201.pdf",
+              "SAL-PROC_HuongDanSuDungCRM_20250215.docx"
+            ]
+          },
+          {
+            "name": "PROP-Proposals",
+            "code": "SAL-PROP",
+            "description": "Đề xuất Bán hàng",
+            "examples": [
+              "SAL-PROP_CommercialProposal_KhachHangX_20250315.pptx",
+              "SAL-PROP_BaoGiaDuAnY_20250320.pdf"
+            ]
+          },
+          {
+            "name": "CTR-Contracts",
+            "code": "SAL-CTR",
+            "description": "Hợp đồng Bán hàng (Phân quyền nghiêm ngặt!)",
+            "examples": [
+              "SAL-CTR_HopDongMuaBanKhachHangX_20250325.pdf",
+              "SAL-CTR_PhuLucHopDongDichVuY_20250330.pdf"
+            ]
+          },
+          {
+            "name": "REP-Reports",
+            "code": "SAL-REP",
+            "description": "Báo cáo Bán hàng",
+            "examples": [
+              "SAL-REP_BaoCaoDoanhSoThang03_20250405.xlsx",
+              "SAL-REP_BaoCaoKetQuaBanHangQ1_20250405.pptx"
+            ]
+          }
+        ]
+      },
+      ,{
+        "name": "PRD-Product",
+        "code": "PRD",
+        "description": "Sản phẩm: Phát triển, quản lý, tài liệu sản phẩm",
+        "readme": "Mục đích chung của thư mục Sản phẩm",
+        "subfolders": [
+          {
+            "name": "DEV-Development",
+            "code": "PRD-DEV",
+            "description": "Phát triển Sản phẩm",
+            "readme": "Mã: PRD-DEV",
+            "subfolders": [
+              {
+                "name": "ROAD-Roadmap",
+                "code": "PRD-DEV-ROAD",
+                "description": "Lộ trình Sản phẩm",
+                "examples": [
+                  "PRD-DEV-ROAD_ProductRoadmap2025_20250101.pptx",
+                  "PRD-DEV-ROAD_KeHoachPhatHanhQ2_20250401.xlsx"
+                ]
+              },
+              {
+                "name": "SPEC-Specifications",
+                "code": "PRD-DEV-SPEC",
+                "description": "Đặc tả Sản phẩm",
+                "examples": [
+                  "PRD-DEV-SPEC_PRD_TinhNangMoiX_v1.0_20250315.docx",
+                  "PRD-DEV-SPEC_TechSpec_TinhNangY_20250320.pdf"
+                ]
+              },
+              {
+                "name": "PROTO-Prototypes",
+                "code": "PRD-DEV-PROTO",
+                "description": "Mẫu thử Sản phẩm",
+                "examples": [
+                  "PRD-DEV-PROTO_Wireframe_TinhNangMoi_20250310.fig",
+                  "PRD-DEV-PROTO_Mockup_GiaoDienMoi_20250315.xd"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "MGMT-Management",
+            "code": "PRD-MGMT",
+            "description": "Quản lý Sản phẩm",
+            "readme": "Mã: PRD-MGMT",
+            "subfolders": [
+              {
+                "name": "REL-Releases",
+                "code": "PRD-MGMT-REL",
+                "description": "Phát hành Sản phẩm",
+                "examples": [
+                  "PRD-MGMT-REL_ReleaseNotes_v2.5_20250320.pdf",
+                  "PRD-MGMT-REL_KeHoachPhatHanhv2.6_20250401.docx"
+                ]
+              },
+              {
+                "name": "MEET-Meetings",
+                "code": "PRD-MGMT-MEET",
+                "description": "Họp Sản phẩm",
+                "examples": [
+                  "PRD-MGMT-MEET_BienBanHopSprintReview_20250330.docx",
+                  "PRD-MGMT-MEET_ProductCouncilQ1_20250315.pptx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "DOC-Documentation",
+            "code": "PRD-DOC",
+            "description": "Tài liệu Sản phẩm",
+            "readme": "Mã: PRD-DOC",
+            "subfolders": [
+              {
+                "name": "USR-UserDocs",
+                "code": "PRD-DOC-USR",
+                "description": "Tài liệu Người dùng",
+                "examples": [
+                  "PRD-DOC-USR_HuongDanSuDungSanPhamX_v2.5_20250320.pdf",
+                  "PRD-DOC-USR_FAQSanPhamY_20250325.docx"
+                ]
+              },
+              {
+                "name": "TECH-TechDocs",
+                "code": "PRD-DOC-TECH",
+                "description": "Tài liệu Kỹ thuật",
+                "examples": [
+                  "PRD-DOC-TECH_APIReference_v2.5_20250320.pdf",
+                  "PRD-DOC-TECH_SystemArchitecture_20250325.vsdx"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "MKT-Marketing",
+            "code": "PRD-MKT",
+            "description": "Tài liệu Marketing Sản phẩm",
+            "examples": [
+              "PRD-MKT_DatasheetSanPhamX_20250320.pdf",
+              "PRD-MKT_ComparisonMatrix_20250325.xlsx"
+            ]
+          },
+          {
+            "name": "FDB-Feedback",
+            "code": "PRD-FDB",
+            "description": "Phản hồi Sản phẩm",
+            "readme": "Mã: PRD-FDB",
+            "subfolders": [
+              {
+                "name": "CUS-Customer",
+                "code": "PRD-FDB-CUS",
+                "description": "Phản hồi Khách hàng",
+                "examples": [
+                  "PRD-FDB-CUS_BaoCaoKhaoSatKhachHangQ1_20250405.pptx",
+                  "PRD-FDB-CUS_PhanTichYKienKhachHang_Thang03_20250405.xlsx"
+                ]
+              },
+              {
+                "name": "INT-Internal",
+                "code": "PRD-FDB-INT",
+                "description": "Phản hồi Nội bộ",
+                "examples": [
+                  "PRD-FDB-INT_GopYNoiBoPhienBanBeta_20250315.xlsx"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+} 
+    let allFolders = [];
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Khởi tạo dữ liệu
+      initializeData(folderData);
+    });
+function initializeData(data) { 
+  
+  // Hiển thị thông tin tài liệu
+  displayDocumentInfo(data);
+  
+  // Tạo danh sách phẳng tất cả các thư mục để tìm kiếm
+  extractAllFolders(data.folder_structure);
+  
+  // Hiển thị cấu trúc thư mục
+  renderFolderStructure([data.folder_structure], document.getElementById('folderStructure'));
+  
+  // Hiển thị thư mục chính trong tab Tổng quan
+  renderMainFolders(data.folder_structure.subfolders);
+  
+  // Hiển thị các ví dụ từ thư mục
+  renderExamplesFromFolders(allFolders);
+  
+  // Thiết lập sự kiện tìm kiếm
+  setupSearchEvents();
+}
+
+function displayDocumentInfo(data) {
+  const docInfoContainer = document.getElementById('documentInfo');
+  if (docInfoContainer) {
+    docInfoContainer.innerHTML = `
+      <h4>${data.title}</h4>
+      <p><strong>Phiên bản:</strong> ${data.version} | <strong>Ngày hiệu lực:</strong> ${data.effective_date}</p>
+      <p><strong>Mã tài liệu:</strong> ${data.document_code}</p>
+      <p>${data.description}</p>
+    `;
+  }
+}
+
+function extractAllFolders(folder, path = '') {
+  // Thêm đường dẫn đầy đủ
+  folder.path = path ? `${path}/${folder.name}` : folder.name;
+  
+  // Thêm vào danh sách phẳng
+  allFolders.push(folder);
+  
+  // Đệ quy cho thư mục con
+  if (folder.subfolders && folder.subfolders.length > 0) {
+    folder.subfolders.forEach(subfolder => {
+      extractAllFolders(subfolder, folder.path);
+    });
+  }
+}
+
+function renderFolderStructure(folders, container, level = 0) {
+  // Xóa spinner loading
+  if (level === 0) {
+    container.innerHTML = '';
+  }
+  
+  folders.forEach(folder => {
+    const folderItem = document.createElement('div');
+    folderItem.className = 'folder-item';
+    
+    const folderName = document.createElement('div');
+    folderName.className = 'folder-name';
+    folderName.setAttribute('data-folder-code', folder.code);
+    folderName.setAttribute('data-folder-path', folder.path);
+    
+    // Thêm biểu tượng mũi tên nếu có thư mục con
+    if (folder.subfolders && folder.subfolders.length > 0) {
+      const toggle = document.createElement('i');
+      toggle.className = 'bi bi-caret-down folder-toggle';
+      toggle.onclick = function(e) {
+        e.stopPropagation();
+        const childrenContainer = folderItem.querySelector('.folder-children');
+        toggle.classList.toggle('collapsed');
+        childrenContainer.classList.toggle('show');
+      };
+      folderName.appendChild(toggle);
+    } else {
+      // Tạo khoảng trống để căn chỉnh
+      const spacer = document.createElement('span');
+      spacer.className = 'folder-icon';
+      spacer.innerHTML = '&nbsp;&nbsp;&nbsp;';
+      folderName.appendChild(spacer);
+    }
+    
+    // Biểu tượng thư mục
+    const icon = document.createElement('i');
+    icon.className = 'bi bi-folder folder-icon';
+    folderName.appendChild(icon);
+    
+    // Tên thư mục
+    const nameSpan = document.createElement('span');
+    nameSpan.textContent = folder.name;
+    folderName.appendChild(nameSpan);
+    
+    // Mã thư mục
+    const codeSpan = document.createElement('span');
+    codeSpan.className = 'folder-code';
+    codeSpan.textContent = folder.code;
+    folderName.appendChild(codeSpan);
+    
+    // Sự kiện click để hiển thị chi tiết
+    folderName.onclick = function() {
+      // Bỏ chọn thư mục hiện tại
+      const selectedFolders = document.querySelectorAll('.folder-name.selected-folder');
+      selectedFolders.forEach(f => f.classList.remove('selected-folder'));
+      
+      // Chọn thư mục mới
+      folderName.classList.add('selected-folder');
+      
+      // Hiển thị chi tiết thư mục
+      showFolderDetails(folder);
+    };
+    
+    folderItem.appendChild(folderName);
+    
+    // Thư mục con
+    if (folder.subfolders && folder.subfolders.length > 0) {
+      const childrenContainer = document.createElement('div');
+      childrenContainer.className = 'folder-children';
+      renderFolderStructure(folder.subfolders, childrenContainer, level + 1);
+      folderItem.appendChild(childrenContainer);
+    }
+    
+    container.appendChild(folderItem);
+  });
+}
+
+function showFolderDetails(folder) {
+  const detailsContainer = document.getElementById('folderDetails');
+  
+  let childrenList = '';
+  if (folder.subfolders && folder.subfolders.length > 0) {
+    childrenList = `
+      <h6 class="mt-4">Thư mục con:</h6>
+      <ul class="list-group">
+        ${folder.subfolders.map(child => `
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            ${child.name}
+            <span class="badge bg-secondary">${child.code}</span>
+          </li>
+        `).join('')}
+      </ul>
+    `;
+  }
+  
+  let description = folder.description || 'Không có mô tả chi tiết.';
+  let readme = folder.readme ? `<div class="alert alert-info">${folder.readme}</div>` : '';
+  
+  let examples = '';
+  if (folder.examples && folder.examples.length > 0) {
+    examples = `
+      <h6 class="mt-4">Ví dụ tài liệu:</h6>
+      <ul class="examples-list">
+        ${folder.examples.map(example => `
+          <li><i class="bi bi-file-earmark-text"></i> ${example}</li>
+        `).join('')}
+      </ul>
+    `;
+  }
+  
+  detailsContainer.innerHTML = `
+    <h5>
+      <i class="bi bi-folder text-primary"></i> 
+      ${folder.name} <small class="text-muted">${folder.code}</small>
+    </h5>
+    
+    <div class="folder-path">
+      <i class="bi bi-diagram-3"></i> ${folder.path}
+      <i class="bi bi-clipboard copy-btn" title="Sao chép đường dẫn" onclick="copyToClipboard('${folder.path}')"></i>
+    </div>
+    
+    <div class="card mb-3">
+      <div class="card-body">
+        <h6 class="card-title">Mô tả:</h6>
+        <p class="card-text">${description}</p>
+        ${readme}
+      </div>
+    </div>
+    
+    ${childrenList}
+    ${examples}
+  `;
+}
+
+function renderMainFolders(folders) {
+  if (!folders) return;
+  
+  const mainFolders1 = document.getElementById('main-folders-1');
+  const mainFolders2 = document.getElementById('main-folders-2');
+  
+  if (!mainFolders1 || !mainFolders2) return;
+  
+  // Chia đôi danh sách thư mục chính
+  const half = Math.ceil(folders.length / 2);
+  
+  // Hiển thị nửa đầu
+  mainFolders1.innerHTML = folders.slice(0, half).map(folder => `
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      ${folder.name}
+      <span class="badge bg-primary rounded-pill">${folder.code}</span>
+    </li>
+  `).join('');
+  
+  // Hiển thị nửa sau
+  mainFolders2.innerHTML = folders.slice(half).map(folder => `
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      ${folder.name}
+      <span class="badge bg-primary rounded-pill">${folder.code}</span>
+    </li>
+  `).join('');
+}
+
+function renderExamplesFromFolders(folders) {
+  // Lọc các thư mục có ví dụ
+  const foldersWithExamples = folders.filter(folder => folder.examples && folder.examples.length > 0);
+  
+  if (foldersWithExamples.length === 0) return;
+  
+  const accordionContainer = document.getElementById('examplesAccordion');
+  if (!accordionContainer) return;
+  
+  accordionContainer.innerHTML = foldersWithExamples.map((folder, index) => `
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading${index}">
+        <button class="accordion-button ${index === 0 ? '' : 'collapsed'}" type="button" 
+                data-bs-toggle="collapse" data-bs-target="#collapse${index}" 
+                aria-expanded="${index === 0 ? 'true' : 'false'}" aria-controls="collapse${index}">
+          ${folder.name} (${folder.code})
+        </button>
+      </h2>
+      <div id="collapse${index}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" 
+           aria-labelledby="heading${index}" data-bs-parent="#examplesAccordion">
+        <div class="accordion-body">
+          <div class="folder-path">
+            <i class="bi bi-diagram-3"></i> ${folder.path}
+          </div>
+          <p>${folder.description}</p>
+          <div class="example-box">
+            <h6>Ví dụ tên tài liệu:</h6>
+            <ul class="examples-list">
+              ${folder.examples.map(example => `
+                <li><i class="bi bi-file-earmark-text"></i> ${example}</li>
+              `).join('')}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setupSearchEvents() {
+  // Tìm kiếm thư mục
+  const folderSearchInput = document.getElementById('folderSearch');
+  if (folderSearchInput) {
+    folderSearchInput.addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase().trim();
+      
+      if (searchTerm.length < 2) {
+        // Hiển thị lại toàn bộ cấu trúc thư mục
+        renderFolderStructure([folderData.folder_structure], document.getElementById('folderStructure'));
+        return;
+      }
+      
+      // Tìm các thư mục phù hợp
+      const matchedFolders = allFolders.filter(folder => 
+        folder.name.toLowerCase().includes(searchTerm) || 
+        folder.code.toLowerCase().includes(searchTerm)
+      );
+      
+      // Hiển thị kết quả tìm kiếm
+      const folderStructureContainer = document.getElementById('folderStructure');
+      folderStructureContainer.innerHTML = '';
+      
+      if (matchedFolders.length === 0) {
+        folderStructureContainer.innerHTML = `
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> Không tìm thấy thư mục nào phù hợp với "${this.value}".
+          </div>
+        `;
+        return;
+      }
+      
+      matchedFolders.forEach(folder => {
+        const folderItem = document.createElement('div');
+        folderItem.className = 'folder-item';
+        
+        const folderName = document.createElement('div');
+        folderName.className = 'folder-name';
+        folderName.innerHTML = `
+          <i class="bi bi-folder"></i>
+          <span>${highlightMatch(folder.name, searchTerm)}</span>
+          <span class="folder-code">${highlightMatch(folder.code, searchTerm)}</span>
+        `;
+        
+        // Thêm đường dẫn
+        const pathSpan = document.createElement('div');
+        pathSpan.className = 'result-path';
+        pathSpan.innerHTML = `<i class="bi bi-diagram-3"></i> ${folder.path}`;
+        
+        folderName.onclick = function() {
+          showFolderDetails(folder);
+        };
+        
+        folderItem.appendChild(folderName);
+        folderItem.appendChild(pathSpan);
+        folderStructureContainer.appendChild(folderItem);
+      });
+    });
+  }
+  
+  // Tìm kiếm toàn cục
+  const globalSearchInput = document.getElementById('globalSearch');
+  if (globalSearchInput) {
+    globalSearchInput.addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase().trim();
+      const searchResultsContainer = document.getElementById('searchResults');
+      const searchResultCount = document.getElementById('searchResultCount');
+      
+      if (!searchResultsContainer || !searchResultCount) return;
+      
+   const searchTab = new bootstrap.Tab(document.getElementById('search-tab'));
+      searchTab.show(); 
+      if (searchTerm.length < 2) {
+        searchResultsContainer.innerHTML = `
+          <div class="text-center py-5 text-muted">
+            <i class="bi bi-search" style="font-size: 3rem;"></i>
+            <h4 class="mt-3">Nhập từ khóa để tìm kiếm</h4>
+            <p>Kết quả tìm kiếm sẽ hiển thị tại đây</p>
+          </div>
+        `;
+        searchResultCount.textContent = '0';
+        return;
+      }
+      
+      // Tìm các thư mục phù hợp
+      const matchedFolders = allFolders.filter(folder => 
+        folder.name.toLowerCase().includes(searchTerm) || 
+        folder.code.toLowerCase().includes(searchTerm) ||
+        (folder.description && folder.description.toLowerCase().includes(searchTerm)) ||
+        (folder.readme && folder.readme.toLowerCase().includes(searchTerm))
+      );
+      
+      // Hiển thị kết quả
+      searchResultCount.textContent = matchedFolders.length.toString();
+      
+      if (matchedFolders.length === 0) {
+        searchResultsContainer.innerHTML = `
+          <div class="text-center py-5">
+            <i class="bi bi-search" style="font-size: 2rem; color: var(--secondary-color);"></i>
+            <h5 class="mt-3">Không tìm thấy kết quả</h5>
+            <p class="text-muted">Không có thư mục nào phù hợp với "${this.value}".</p>
+          </div>
+        `;
+        return;
+      }
+      
+      searchResultsContainer.innerHTML = matchedFolders.map(folder => `
+        <div class="result-item" onclick="showFolderDetailsAndSwitchTab('${folder.code}')">
+          <div>
+            <i class="bi bi-folder text-primary"></i>
+            <strong>${highlightMatch(folder.name, searchTerm)}</strong>
+            <span class="badge bg-primary">${highlightMatch(folder.code, searchTerm)}</span>
+          </div>
+          <div class="result-path">
+            <i class="bi bi-diagram-3"></i> ${folder.path}
+          </div>
+          ${folder.description ? `<div class="small mt-1">${highlightMatch(folder.description, searchTerm)}</div>` : ''}
+        </div>
+      `).join('');
+    });
+  }
+}
+
+function highlightMatch(text, searchTerm) {
+  if (!text) return '';
+  
+  const regex = new RegExp(`(${searchTerm})`, 'gi');
+  return text.replace(regex, '<span class="highlight">$1</span>');
+}
+
+function showFolderDetailsAndSwitchTab(folderCode) {
+  // Chuyển đến tab cấu trúc thư mục
+  const structureTab = document.getElementById('structure-tab');
+  if (structureTab) {
+    structureTab.click();
+  }
+  
+  // Tìm thư mục theo mã
+  const folder = allFolders.find(f => f.code === folderCode);
+  if (folder) {
+    // Hiển thị chi tiết thư mục
+    showFolderDetails(folder);
+    
+    // Tìm và làm nổi bật thư mục trong cấu trúc
+    const folderElement = document.querySelector(`[data-folder-code="${folderCode}"]`);
+    if (folderElement) {
+      // Bỏ chọn thư mục hiện tại
+      const selectedFolders = document.querySelectorAll('.folder-name.selected-folder');
+      selectedFolders.forEach(f => f.classList.remove('selected-folder'));
+      
+      // Chọn thư mục mới
+      folderElement.classList.add('selected-folder');
+      
+      // Cuộn đến thư mục
+      folderElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(
+    function() {
+      // Thông báo sao chép thành công
+      alert('Đã sao chép đường dẫn: ' + text);
+    },
+    function(err) {
+      console.error('Không thể sao chép: ', err);
+    }
+  );
+}
+  </script>
+</body>
+</html>
